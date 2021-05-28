@@ -1,0 +1,7 @@
+domain: ydzs.io
+repo: github.com/crain-cn/k8s-demo/builder-demo
+resources:
+- group: webapp
+  kind: Guestbook
+  version: v1
+version: "2"
