@@ -53,7 +53,7 @@ func initClient() (*kubernetes.Clientset, *rest.Config, error) {
 	var kubeconfig *string
 
 	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(可选) kubeconfig 文件的绝对路径")
+		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "k8s-32-dev"), "(可选) kubeconfig 文件的绝对路径")
 	} else {
 		kubeconfig = flag.String("kubeconfig", "", "kubeconfig 文件的绝对路径")
 	}

@@ -130,7 +130,7 @@ func initClient() (*kubernetes.Clientset, error) {
 	var kubeconfig *string
 
 	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(可选) kubeconfig 文件的绝对路径")
+		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "k8s-32-dev"), "(可选) kubeconfig 文件的绝对路径")
 	} else {
 		kubeconfig = flag.String("kubeconfig", "", "kubeconfig 文件的绝对路径")
 	}
@@ -156,7 +156,7 @@ func main() {
 	}
 
 	// 创建 Pod ListWatcher
-	podListWatcher := cache.NewListWatchFromClient(clientset.CoreV1().RESTClient(), "pods", "kube-system", fields.Everything())
+	podListWatcher := cache.NewListWatchFromClient(clientset.CoreV1().RESTClient(), "pods", "zhaoyutest", fields.Everything())
 
 	// 创建队列
 	queue := workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter())
@@ -189,8 +189,8 @@ func main() {
 
 	indexer.Add(&v1.Pod{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      "coredns",
-			Namespace: "kube-system",
+			Name:      "nginx-deployment-5bf87f5f59-6ln2h",
+			Namespace: "zhaoyutest",
 		},
 	})
 

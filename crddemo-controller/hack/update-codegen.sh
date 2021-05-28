@@ -10,7 +10,7 @@ CODEGEN_PKG=${CODEGEN_PKG:-$(cd "${SCRIPT_ROOT}"; ls -d -1 ./vendor/k8s.io/code-
 bash "${CODEGEN_PKG}"/generate-groups.sh "deepcopy,client,informer,lister" \
   github.com/crain-cn/k8s-demo/crddemo-controller/pkg/client github.com/crain-cn/k8s-demo/crddemo-controller/pkg/apis \
   stable:v1beta1 \
-  --output-base "${SCRIPT_ROOT}"/../../.. \
+  --output-base "${SCRIPT_ROOT}"/../../../.. \
   --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt
 
 # To use your own boilerplate text append:
