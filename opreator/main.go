@@ -27,8 +27,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	appv1beta1 "opreator/api/v1beta1"
-	"opreator/controllers"
+	appv1beta1 "github.com/crain-cn/k8s-demo/opreator/api/v1beta1"
+	"github.com/crain-cn/k8s-demo/opreator/controllers"
 	// +kubebuilder:scaffold:imports
 )
 

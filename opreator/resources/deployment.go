@@ -22,9 +22,9 @@ func NewDeploy(app *appv1beta1.AppService) *appsv1.Deployment {
 
 			OwnerReferences: []metav1.OwnerReference{
 				*metav1.NewControllerRef(app, schema.GroupVersionKind{
-					Group:  appv1beta1.GroupVersion.Group,
-					Version: appv1beta1.GroupVersion.Version,
-					Kind: appv1beta1.Kind,
+					Group:   appsv1.SchemeGroupVersion.Group,
+					Version: appsv1.SchemeGroupVersion.Version,
+					Kind:    "AppService",
 				}),
 			},
 		},
@@ -38,6 +38,7 @@ func NewDeploy(app *appv1beta1.AppService) *appsv1.Deployment {
 					Containers: newContainers(app),
 				},
 			},
+
 			Selector: selector,
 		},
 	}
@@ -52,12 +53,12 @@ func newContainers(app *appv1beta1.AppService) []corev1.Container {
 	}
 	return []corev1.Container{
 		{
-			Name: app.Name,
-			Image: app.Spec.Image,
-			Resources: app.Spec.Resources,
-			Ports: containerPorts,
+			Name:            app.Name,
+			Image:           app.Spec.Image,
+			Resources:       app.Spec.Resources,
+			Ports:           containerPorts,
 			ImagePullPolicy: corev1.PullIfNotPresent,
-			Env: app.Spec.Envs,
+			Env:             app.Spec.Envs,
 		},
 	}
 }

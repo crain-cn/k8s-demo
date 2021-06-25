@@ -29,8 +29,9 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	appsv1 "k8s.io/api/apps/v1"
 	appv1beta1 "github.com/crain-cn/k8s-demo/opreator/api/v1beta1"
+	"github.com/crain-cn/k8s-demo/opreator/resources"
+	appsv1 "k8s.io/api/apps/v1"
 )
 
 // AppServiceReconciler reconciles a AppService object
@@ -70,9 +71,9 @@ func (r *AppServiceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 		// 1. 关联 Annotations
 		data, _ := json.Marshal(appService.Spec)
 		if appService.Annotations != nil {
-			appService.Annotations[oldSpecAnnotation] = string(data)
+			appService.Annotations["spec"] = string(data)
 		} else {
-			appService.Annotations = map[string]string{oldSpecAnnotation: string(data)}
+			appService.Annotations = map[string]string{"spec": string(data)}
 		}
 		if err := r.Client.Update(ctx, &appService); err != nil {
 			return ctrl.Result{}, err
@@ -91,7 +92,7 @@ func (r *AppServiceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 		return ctrl.Result{}, nil
 	}
 	oldspec := appv1beta1.AppServiceSpec{}
-	if err := json.Unmarshal([]byte(appService.Annotations[oldSpecAnnotation]), &oldspec); err != nil {
+	if err := json.Unmarshal([]byte(appService.Annotations["spec"]), &oldspec); err != nil {
 		return ctrl.Result{}, err
 	}
 	// 当前规范与旧的对象不一致，则需要更新
