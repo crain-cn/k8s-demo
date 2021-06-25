@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-blog
+spec:
+  type: ExternalName
+  externalName: blog.jeffthecoder.xyz
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: external-blog
+              servicePort: 80
