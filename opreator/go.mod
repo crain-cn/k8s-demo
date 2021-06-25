@@ -1,4 +1,4 @@
-module opreator
+module github.com/crain-cn/k8s-demo/opreator
 
 go 1.13
 
